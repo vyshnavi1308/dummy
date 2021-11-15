@@ -1,0 +1,108 @@
+
+<div data-seed-store-navbar></div>
+<div class="container-fluid content">
+	<div class="search-supplier">
+		<form novalidate>
+			<div class="form-group row">
+				<p id="page" style="background-color: lightgray"; >List Page</p>
+				<div class="mydiv" align="center">
+					<label class="col-sm col-form-label" for="search-supplier-input">Supplier
+						code:</label> <input type="text" name="input" id="search-supplier-input"
+						data-ng-model="searchedSupplier" class="form-control-plaintext ">
+					<p class="fa fa-search"></p>
+				</div>
+			</div>
+		</form>
+	</div>
+	<br> <br>
+	<div>
+		<div class="mydiv">
+			<table class="table">
+				<tr>
+					<th align="left"><label> </label></th>
+					<th>Supplier Code</th>
+					<th>Address</th>
+					<th>Activation Date</th>
+				</tr>
+				<tbody data-ng-repeat="supplier in paginatedSuppliers" >
+					
+					<tr >
+						<td><label> <input type="checkbox" id="checkbox_{{$index}}"
+						data-ng-click="selectedsupplier($index)"
+						 name="mycheckbox"
+								value="{{time}}" data-ng-model="isChecked">
+						</label></td>
+						<td>{{supplier.id}}</td>
+						<td>{{supplier.address}}</td>
+						<td>{{supplier.activationDate | date:'dd-MM-yyyy'}}</td>
+						<td>
+							<button data-ng-click="deleteSupplier(supplier)"
+								class="btn btn-danger btn-sm">
+								<i class="fa fa-trash"></i> Delete
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<br> <br>
+			<div class="wrapper" align="center">
+				<button data-ng-click="createNewSupplier()" class="btn btn-success"
+					id="btn">
+					<i class="fa fa-plus" aria-hidden="true"></i> Add
+				</button>
+						<button data-ng-click="activateSelectedSupplier()"
+					class="btn btn-primary" id="btn">
+					<i class="fa fa-pencil" aria-hidden="true"></i> Activate
+				</button>
+				<!-- <button class="btn btn-default" data-ng-repeat="supplier in paginatedSuppliers" data-ng-click="deleteSupplier(supplier)" id="btn">Delete</button>-->
+				<!--<button data-ng-click="deleteSupplier(supplier)" id="btn">delete</button>-->
+				<button onClick="window.location.reload();" class="btn btn-info"
+					id="btn">
+					<i class="fa fa-refresh" aria-hidden="true"></i> Refresh
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal to add/edit a new supplier -->
+	<script type="text/ng-template" id="modalSupplier.html">
+        <div class="modal-header">
+            <h3 class="modal-title"> {{ modalTitle }} </h3>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <form name="add-new-supplier">
+                    <div class="form-group col-md-6">
+                        <label for="supplier_code" class="control-label">Supplier Code:</label>
+                        <input name="supplierCode" data-ng-model="supplier.id" type="text" class="form-control"
+                               id="supplier-id" required>
+                    </div>
+                    
+                    <div class="form-group col-md-12">
+                        <label for="supplier-address" class="control-label">Address:</label>
+                        <textarea name="address" data-ng-model="supplier.address" class="form-control"
+                                  id="supplier-address" required></textarea>
+                    </div>
+                 </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-ng-click="ok()">OK</button>
+            <button class="btn btn-warning" data-ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+	<!-- Modal to delete a supplier -->
+	<script type="text/ng-template" id="modalConfirmSupplier.html">
+        <div class="modal-header">
+            <h3 class="modal-title"> {{ modalTitle }} </h3>
+        </div>
+        <div class="modal-body">
+            Delete Supplier {{ supplier.id }} {{ supplier.address }} ?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-ng-click="ok()">OK</button>
+            <button class="btn btn-warning" data-ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+</div>
+
